@@ -1,0 +1,43 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+export function getStaticPaths() {
+  return [
+    {params: {book: 'goodnight-goodnight-construction-site'}},
+  ];
+}
+
+const { book } = Astro.params;
+---
+
+<Layout title="Kids Construction Books">
+	<main>
+		<h1>Goodnight Goodnight, Construction Site</h1>
+		<img src="/images/books/goodnight-goodnight-construction-site.jpg" height="512">
+	</main>
+</Layout>
+
+<style>
+	main {
+		margin: auto;
+		padding: 1rem;
+		width: 800px;
+		max-width: calc(100% - 2rem);
+		color: white;
+		font-size: 20px;
+		line-height: 1.6;
+	}
+	h1 {
+		font-size: 4rem;
+		font-weight: 700;
+		line-height: 1;
+		text-align: center;
+		margin-bottom: 1em;
+	}
+	.link-card-grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
+		gap: 2rem;
+		padding: 0;
+	}
+</style>

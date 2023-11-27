@@ -1,13 +1,21 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { books as booksTable } from '../../db/schema';
+import { db } from '../../db/db';
+import { eq } from 'drizzle-orm';
 
-const { book } = Astro.params;
+const { bookId } = Astro.params;
+
+const book = await db.select().from(booksTable).where(eq(booksTable.id, parseInt(bookId))).get();
+
 ---
 
 <Layout title="Kids Construction Books">
 	<main>
-		<h1>Goodnight Goodnight, Construction Site</h1>
-		<img src="/images/books/goodnight-goodnight-construction-site.jpg" height="512">
+		<h1>{book.title}</h1>
+		<div class="centered">
+			<img src={book.image} height="512">
+		</div>
 	</main>
 </Layout>
 
@@ -28,10 +36,9 @@ const { book } = Astro.params;
 		text-align: center;
 		margin-bottom: 1em;
 	}
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 2rem;
-		padding: 0;
+	.centered {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
 	}
 </style>

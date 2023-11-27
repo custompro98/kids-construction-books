@@ -14,7 +14,7 @@ const books = await db.select().from(booksTable).orderBy(booksTable.title).all()
 			{books.map((book) => {
 				return (
 					<Card
-						href=`/books/${book.id}`
+						href={`/books/${book.id}`}
 						title={book.title}
 						imgSrc={book.image}
 					/>

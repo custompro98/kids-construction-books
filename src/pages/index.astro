@@ -1,32 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Card from '../components/Card.astro';
+import { books as booksTable } from '../db/schema';
+import { db } from '../db/db';
+
+const books = await db.select().from(booksTable).orderBy(booksTable.title).all();
 ---
 
 <Layout title="Kids Construction Books">
 	<main>
 		<h1>Kids Construction Books</h1>
 		<ul role="list" class="link-card-grid">
-			<Card
-				href="/books/goodnight-goodnight-construction-site"
-				title="Goodnight, Goodnight Construction Site"
-				imgSrc="/images/books/goodnight-goodnight-construction-site.jpg"
-			/>
-			<Card
-				href="/books/goodnight-goodnight-construction-site"
-				title="Goodnight, Goodnight Construction Site"
-				imgSrc="/images/books/goodnight-goodnight-construction-site.jpg"
-			/>
-			<Card
-				href="/books/goodnight-goodnight-construction-site"
-				title="Goodnight, Goodnight Construction Site"
-				imgSrc="/images/books/goodnight-goodnight-construction-site.jpg"
-			/>
-			<Card
-				href="/books/goodnight-goodnight-construction-site"
-				title="Goodnight, Goodnight Construction Site"
-				imgSrc="/images/books/goodnight-goodnight-construction-site.jpg"
-			/>
+			{books.map((book) => {
+				return (
+					<Card
+						href=`/books/${book.id}`
+						title={book.title}
+						imgSrc={book.image}
+					/>
+				);
+			})}
 		</ul>
 	</main>
 </Layout>
